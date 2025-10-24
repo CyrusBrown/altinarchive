@@ -1,0 +1,5 @@
+import { createClient } from '@supabase/supabase-js';
+const VITE_PUBLIC_SUPABASE_URL = "https://ngnaouoauntqaktufnkd.supabase.co"
+const VITE_PUBLIC_SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nbmFvdW9hdW50cWFrdHVmbmtkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTk3OTA4MzMsImV4cCI6MjA3NTM2NjgzM30.udW_99LVkBddc8SV696MXTy3JLpyNgBNxr8yyqIzDiU"
+
+export const supabase = createClient(VITE_PUBLIC_SUPABASE_URL, VITE_PUBLIC_SUPABASE_PUBLISHABLE_KEY)
