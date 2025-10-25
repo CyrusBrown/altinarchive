@@ -35,7 +35,8 @@
         } else {
           console.log('Function response data:', data);
           post_result = data as PostData;
-          goto(`/post/${post_result.id}`);
+          const params = new URLSearchParams({ id: String(post_result.id) });
+          goto(`/post?${params.toString()}`);
         }
         
     }

@@ -22,7 +22,8 @@
     let posts = $derived(await pPromise);
     
     function openPost(data: PostData){
-        goto(`/post/${data.id}`)
+      const params = new URLSearchParams({ id: String(data.id) });
+      goto(`/post?${params.toString()}`);
     }
 
     console.log(posts.pdatas);
