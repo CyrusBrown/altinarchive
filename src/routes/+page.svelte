@@ -60,7 +60,8 @@
         <div class="flex justify-center">       
              <p class="font-semibold text-muted-foreground">{posts.pdatas.length} posts in the archive</p>
         </div>
-        {#each posts.pdatas as post}
+        
+        {#each [...posts.pdatas].reverse() as post}
         <PostPreview postdata={post} clickedAction={() => openPost(post)} data-sveltekit-noscroll/>
         {/each}
     </div>
