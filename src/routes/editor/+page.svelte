@@ -4,6 +4,7 @@
     import type { PostData } from "$lib/types.ts";
     import * as AlertDialog from "$lib/components/ui/alert-dialog/index.js";
     import { supabase } from "$lib/supabaseclient";
+    import Loader2Icon from "@lucide/svelte/icons/loader-2";
     import { toast } from "svelte-sonner";
     import { FunctionsHttpError, FunctionsRelayError, FunctionsFetchError } from "@supabase/supabase-js";
 
@@ -25,8 +26,11 @@
 
   let post_result: PostData = $state({"id": 0, date: Date.now(), content:"0", config: {}});
 
+  let posting = $state(false);
 
     async function submitPost(content: string, password: string) {
+
+        posting = true;
         console.log("submitting post");
         // create_post(password, content);
         const { data, error } = await supabase.functions.invoke('altin-archive', {
@@ -49,6 +53,7 @@
           const params = new URLSearchParams({ id: String(post_result.id) });
           goto(`/post?${params.toString()}`);
         }
+        posting = false;
         
     }
 
@@ -85,13 +90,16 @@
                     </AlertDialog.Description>
                   </AlertDialog.Header>
                   <AlertDialog.Footer>
-                    <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-                    <AlertDialog.Action onclick={() => submitPost(preview_text, secret)}>Post</AlertDialog.Action>
+                    <AlertDialog.Cancel onclick={() => posting = false}>Cancel</AlertDialog.Cancel>
+                    <AlertDialog.Action onclick={() => submitPost(preview_text, secret)} disabled={posting} > {#if posting} 
+                      <Loader2Icon class="animate-spin" />
+                      {/if}
+                      Post</AlertDialog.Action>
                   </AlertDialog.Footer>
                 </AlertDialog.Content>
               </AlertDialog.Root>
             </div>
-            <PostPreview postdata={preview_data} className="flex-1"/>
+            <PostPreview postdata={preview_data} className="flex-1" clip={false}/>
         </div>
     </div>
 </div>
