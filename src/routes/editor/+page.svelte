@@ -4,6 +4,9 @@
     import type { PostData } from "$lib/types.ts";
     import * as AlertDialog from "$lib/components/ui/alert-dialog/index.js";
     import { supabase } from "$lib/supabaseclient";
+    import { toast } from "svelte-sonner";
+    import { FunctionsHttpError, FunctionsRelayError, FunctionsFetchError } from "@supabase/supabase-js";
+
 
     let current_text: string = $state("type here")
 
@@ -30,11 +33,19 @@
           body: { secret: password, content: content }
         })
         if (error) {
-          console.error('Error invoking function:', error);
-          // implement some sort of popup or smtn
+          if (error instanceof FunctionsHttpError) {
+              const errorMessage = await error.context.json()
+              console.log(errorMessage)
+              toast.error('Error: ' + errorMessage.error)
+            } else if (error instanceof FunctionsRelayError) {
+              toast.error('Error: ' + error.message)
+            } else if (error instanceof FunctionsFetchError) {
+              toast.error('Error: ' + error.message)
+            }
+          console.log(error)
         } else {
           console.log('Function response data:', data);
-          post_result = data as PostData;
+          post_result = data.inserted[0] as PostData;
           const params = new URLSearchParams({ id: String(post_result.id) });
           goto(`/post?${params.toString()}`);
         }
