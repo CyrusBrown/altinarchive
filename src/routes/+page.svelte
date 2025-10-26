@@ -23,7 +23,7 @@
     
     function openPost(data: PostData){
       const params = new URLSearchParams({ id: String(data.id) });
-      goto(`/post?${params.toString()}`);
+      goto(`/post?${params.toString()}`, {noScroll: true});
     }
 
     console.log(posts.pdatas);
@@ -61,7 +61,7 @@
              <p class="font-semibold text-muted-foreground">{posts.pdatas.length} posts in the archive</p>
         </div>
         {#each posts.pdatas as post}
-        <PostPreview postdata={post} clickedAction={() => openPost(post)} />
+        <PostPreview postdata={post} clickedAction={() => openPost(post)} data-sveltekit-noscroll/>
         {/each}
     </div>
 </div>
