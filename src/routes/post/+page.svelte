@@ -51,7 +51,7 @@ async function reload_post(id: number){
 </script>
 
 <div class="min-h-screen flex items-center justify-center">
-    <div class="w-full max-w-4xl p-8">
+    <div class="w-full max-w-4xl py-8 px-4">
 
     <!-- <div class="p-2 flex justify-center items-center">
 </div> -->

@@ -55,7 +55,7 @@
 
 <div class="min-h-screen flex items-center justify-center">
     <div class="w-full max-w-4xl">
-    <div class="flex flex-col gap-4 p-16">
+    <div class="flex flex-col gap-4 py-16 px-4">
         <!-- <a href="/editor" class="text-blue-500 underline ">click me</a> -->
         <div class="flex justify-center">       
              <p class="font-semibold text-muted-foreground">{posts.pdatas.length} posts in the archive</p>

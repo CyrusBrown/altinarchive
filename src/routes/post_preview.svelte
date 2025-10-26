@@ -27,5 +27,6 @@
     <article class="prose dark:prose-invert typography">
         {@html marked.parse(postdata.content)}
     </article>
+    
     </div>
 </div>  
