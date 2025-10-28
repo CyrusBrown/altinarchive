@@ -6,10 +6,25 @@
     import { supabase } from "$lib/supabaseclient";
     import Loader2Icon from "@lucide/svelte/icons/loader-2";
     import { toast } from "svelte-sonner";
+    import { browser } from "$app/environment";
     import { FunctionsHttpError, FunctionsRelayError, FunctionsFetchError } from "@supabase/supabase-js";
 
 
+
     let current_text: string = $state("type here")
+    if (browser) { // Check if running in a browser environment (important for SSR)
+      const storedValue = localStorage.getItem('current_posttext');
+      if (storedValue) {
+        current_text = JSON.parse(storedValue);
+      }
+    }
+
+
+    $effect(() => {
+      if (browser) { // Check if running in a browser environment (important for SSR)
+        localStorage.setItem('current_posttext', JSON.stringify(current_text));
+      }
+    });
 
     function getCurrentFormattedDate() {
       const today = new Date();
@@ -20,15 +35,17 @@
       const formattedDate = `${year}/${month}/${day}`;
       return formattedDate;
     }
+
     
   import { goto } from '$app/navigation';
 
 
   let post_result: PostData = $state({"id": 0, date: Date.now(), content:"0", config: {}});
 
-  let posting = $state(false);
+  let posting = $state(false);      
 
     async function submitPost(content: string, password: string) {
+
 
         posting = true;
         console.log("submitting post");
@@ -48,6 +65,9 @@
             }
           console.log(error)
         } else {
+          if ( browser ) {
+            localStorage.removeItem('current_posttext');
+          }
           console.log('Function response data:', data);
           post_result = data.inserted[0] as PostData;
           const params = new URLSearchParams({ id: String(post_result.id) });
