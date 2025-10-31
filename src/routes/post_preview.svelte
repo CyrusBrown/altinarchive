@@ -23,7 +23,6 @@
 <div class={`w-full ${className}`} onclick={(e) => handle_click_action(e)}>
     <div class="border-accent border-4 p-6 pt-4 rounded-xl w-full max-h-96" class:overflow-clip={clip} class:max-h-96={clip} >
     <div class="flex justify-center pb-2">    
-        <!-- <h3 class="text-muted-foreground font-semibold">{postdata.date}</h3> parse date better,    looks like 2025-10-24T17:50:59.297987+00:00 including time-->
         <h3 class="text-muted-foreground font-semibold">{new Date(postdata.date).toISOString().split('T')[0].replace(/-/g, '/')}</h3>
     </div>
     <article class="prose dark:prose-invert typography pointer-events-none">
