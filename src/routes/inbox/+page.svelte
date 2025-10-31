@@ -105,7 +105,7 @@
 
 <div class="min-h-screen flex items-center justify-center">
     <div class="flex flex-col items-center justify-center max-w-xl gap-4 p-4 rounded-xl">
-        {#each Array.from({ length: 50 }, () => letters[0]) as letter}
+        {#each letters as letter}
         <!-- svelte-ignore a11y_click_events_have_key_events -->
         <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
         <!-- svelte-ignore a11y_no_static_element_interactions -->
