@@ -5,6 +5,7 @@
     import type { PostData } from "$lib/types.ts";
     import { goto } from "$app/navigation";
     import { supabase } from "$lib/supabaseclient";
+    import Button from "$lib/components/ui/button/button.svelte";
 
 
     async function get_posts(){
@@ -30,8 +31,10 @@
     <div class="w-full max-w-4xl">
     <div class="flex flex-col gap-4 py-16 px-4">
         <!-- <a href="/editor" class="text-blue-500 underline ">click me</a> -->
-        <div class="flex justify-center">       
+        <div class="flex flex-col justify-center items-center">         
              <p class="font-semibold text-muted-foreground">{posts.pdatas.length} posts in the archive</p>
+             <Button href="/mail" variant="link" class="font-semibold text-muted-foreground"> Send a message?</Button>
+
         </div>
         
         {#each [...posts.pdatas].reverse() as post}
